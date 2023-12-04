@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registration</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/register.css' %}">
+  </head>
+  <body>
+    <div class="img-log">
+      <a><span class="img-log-t">{ X }</span> <span class="nav-text">XRPLNFT</span></a>
+    </div>
+    <div class="registration-C">
+      <div class="registration-container">
+        {% if error_message %}
+        <p style="color: red">{{ error_message }}</p>
+        {% endif %}
+
+        <h2>"Sign up now and unlock your XRPL account instantly! 🚀"</h2>
+        <br />
+
+        <form class="reg-form" id="request" action="" method="post">
+          {% csrf_token %}
+
+          <div>
+            <label for="name">Name:</label>
+
+            <input
+              class="form-control"
+              type="text"
+              id="Name"
+              name="Name"
+              required
+              placeholder="Enter Name"
+            />
+          </div>
+          <br />
+
+          <div>
+            <label for="user">Email:</label>
+
+            <input
+              class="form-control"
+              type="text"
+              id="Email"
+              name="Email"
+              required
+              placeholder="Enter Email"
+            />
+          </div>
+          <br />
+
+          <div>
+            <label for="password">Create Password:</label>
+
+            <input
+              class="form-control"
+              type="password"
+              id="Create_Password"
+              name="CreatePassword"
+              required
+              placeholder="Enter Password"
+            />
+          </div>
+
+          <div>
+            <br /><br />
+
+            <input class="reg-btn" type="submit" value="Register" />
+          </div>
+
+          <div>
+            <br />
+
+            <a href="login/">Already a User!!</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

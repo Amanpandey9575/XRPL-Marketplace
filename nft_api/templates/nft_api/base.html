@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Material-UI CSS -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@mui/material@5.4.1/dist/material.min.css"
+integrity="sha384-j8OqDHD5OR6Xfxt2upFqF7r6I8B01AK3z5hv/njiSuhp6a2KC5Bt7Ql4r2mlY8lM"
+crossorigin="anonymous"
+/>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/mintForm.css' %}">
+    <link rel="stylesheet" href="{% static 'style/navbar.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+    <link rel="stylesheet" href="{% static 'style/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'style/explore.css' %}">
+    <link rel="stylesheet" href="{% static 'style/collections.css' %}">
+    <link rel="stylesheet" href="{% static 'style/accept_buy_offer.css' %}">
+
+  </head>
+  <body>
+    <main class="loader-lg-l" id="loader-gl">
+      <svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5ebd3e" />
+            <stop offset="33%" stop-color="#ffb900" />
+            <stop offset="67%" stop-color="#f78200" />
+            <stop offset="100%" stop-color="#e23838" />
+          </linearGradient>
+          <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#e23838" />
+            <stop offset="33%" stop-color="#973999" />
+            <stop offset="67%" stop-color="#009cdf" />
+            <stop offset="100%" stop-color="#5ebd3e" />
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke-linecap="round" stroke-width="16">
+          <g class="ip__track" stroke="#ddd">
+            <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+            <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+          </g>
+          <g stroke-dasharray="180 656">
+            <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+            <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+          </g>
+        </g>
+      </svg>
+    </main>
+
+    <nav class="navbarG" id="navbarG">
+      <div class="img-log">
+        <a href="{% url 'home' %}" id="btn-loader"><span class="img-log-t">{ X }</span> <span class="nav-text">XRPLNFT</span></a>
+      </div>
+      <div class="nav-items responsive750">
+        <ul class="nav-items-list">
+          <li class="nav-item">
+            <a  href="{% url 'explore' %}">Explore NFTs</a>
+          </li>
+          <li class="nav-item nav-item-offer" id="offersBtn" >
+            <p class="item-offer" style="color: white;
+            font-size: 1.2rem;
+            font-weight: 500;cursor:pointer">Offers</p>
+            <div class="menu">
+              <!-- Add menu items here -->
+              <a href="{% url 'create_sell_offer' %}">Create Sell Offer</a>
+              <a href="{% url 'create_buy_offer' %}">Create Buy Offer</a>
+              <a href="{% url 'getdata' %}">Accept Offers</a>
+              {% comment %} <a href="{% url 'getdata' %}">Accept Buy Offer</a> {% endcomment %}
+          </div>
+          </li>
+          <li class="nav-item">
+            <a  href="{% url 'collections' %}">Collections</a>
+          </li>
+          <li class="nav-item">
+            <a  href="{% url 'mint_nft' %}">Create</a>
+          </li>
+          <li class="nav-item" id="loginBtn">
+            {% if account|length > 0 %}
+                {% comment %} <h3>{{ account }}</h3> {% endcomment %}
+                <img src="https://freesvg.org/img/abstract-user-flat-4.png" style="width: 42px;
+                    background: white;
+                    border-radius: 50%;"/>
+            {% else %}
+                <h3>{{ account }}</h3>
+                <img src="https://cdn-icons-png.flaticon.com/512/17/17636.png" style="width: 42px;
+                    background: white;
+                    border-radius: 50%;"/>
+            {% endif %}
+        </li>
+
+        </ul>
+      </div>
+
+      {% comment %}=================================mobile ================================{% endcomment %}
+      <!-- Add the hamburger icon for smaller screens -->
+      <div class="mobile-profile">
+        <ul class="nav-items-list">
+        <li class="nav-item" id="loginBtn">
+          {% if account|length > 0 %}
+              {% comment %} <h3>{{ account }}</h3> {% endcomment %}
+              <img src="https://freesvg.org/img/abstract-user-flat-4.png" style="width: 42px;
+                  background: white;
+                  border-radius: 50%;"/>
+          {% else %}
+              <h3>{{ account }}</h3>
+              <img src="https://cdn-icons-png.flaticon.com/512/17/17636.png" style="width: 42px;
+                  background: white;
+                  border-radius: 50%;"/>
+          {% endif %}
+        </li>
+        </ul>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    <!-- Create a menu container for smaller screens -->
+    <div class="menu-container" id="menu-container">
+      <div class="close-menu">X</div>
+      <ul class="nav-items-list" style="margin-top: 38%;">
+        <li class="nav-item">
+          <a  href="{% url 'explore' %}">Explore NFTs</a>
+        </li>
+        <li class="nav-item nav-item-offer" id="offersBtn" >
+          <p class="item-offer" style="color:black;
+          font-size: 1.2rem;text-align: center;
+          font-weight: 500;cursor:pointer">Offers</p>
+          <div class="menu">
+            <!-- Add menu items here -->
+            <a href="{% url 'create_sell_offer' %}">Create Sell Offer</a>
+            <a href="{% url 'create_buy_offer' %}">Create Buy Offer</a>
+            <a href="{% url 'getdata' %}">Accept Offers</a>
+            {% comment %} <a href="{% url 'getdata' %}">Accept Buy Offer</a> {% endcomment %}
+        </div>
+        </li>
+        <li class="nav-item">
+          <a  href="{% url 'collections' %}">Collections</a>
+        </li>
+        <li class="nav-item">
+          <a  href="{% url 'mint_nft' %}">Create</a>
+        </li>
+
+    </div>
+    
+  </nav>
+
+    <!-- The login pop-up (initially hidden) -->
+    <div id="loginPopup" class="popup hidden">
+      {% comment %} <h3>{{account}}</h3> {% endcomment %}
+      {% if account|length > 0 %}
+      <div class="popup-content" id="popup-content">
+        <a target="_self"  href="{% url 'xumm_view' %}">
+          <button class="btn-index-b btn-ind" style="background" type="submit"> Profile</button>
+        </a>
+        <a target="_self"  href="{% url 'mint_nft' %}">
+          <button class="btn-index-b btn-ind" type="submit">Create a NFT</button>
+        </a>
+        <a target="_self"  href="{% url 'mint_nft' %}">
+          <button class="btn-index-b btn-ind " type="submit">Settings</button>
+        </a>
+      <hr/>
+        <p>{{account}}</p>
+        <a href="{% url 'mint_nft' %}">
+          <button class="btn-index-b btn-index-h">Logout</button>
+        </a>
+    </div>  
+      {% else %}
+      <div class="popup-content" id="popup-content" style="flex-direction: row;">
+        <img src="https://xrpnft.com/static/xumm.jpg" style="width:30px;border-radius: 50%;"/>
+        <a target="_self"  href="{% url 'xumm_view' %}">
+          <button type="submit"> XUMM Login</button>
+        </a>
+      </div>
+      {% endif %}  
+    </div> 
+  
+
+    {%  block contentStart %}
+
+    {% endblock %}
+
+{% include "nft_api/footer.html" %}

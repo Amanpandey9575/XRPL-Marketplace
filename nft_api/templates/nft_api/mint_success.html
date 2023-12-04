@@ -1,0 +1,185 @@
+{% extends "nft_api/base.html" %}
+
+{% comment %} {% include 'header.html' %} {% endcomment %}
+
+{% block contentStart %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>🎉 Minting Successful! 🎉</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #121619;
+            overflow: hidden;
+        }
+
+        .container {
+            border-radius: 14px;
+            margin: 9px auto;
+            width: 92%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: #336699;
+            font-size: 36px;
+            margin: 0;
+
+            padding: 0;
+        }
+
+        .celebration-text {
+            font-size: 37px;
+            color: #ff9900;
+            margin-bottom: 70px;
+            margin-top:72px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(15deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .nft-info {
+            margin-top: 20px;
+        }
+
+        .minted-img {
+            width: 300px;
+            height: 250px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .nft-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            
+        }
+
+        .nft-details p {
+            display: flex;
+            color: #ffffff;
+            
+            justify-content: center;
+            align-items: baseline;
+        }
+
+        .copy-button {
+            background-color: transparent;            
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            color: #ffffff; /* White color */
+        }
+
+        .image-and-table{
+            display: flex;
+            align-items: center;
+            align-content: center;
+            gap: 3%;
+            border: 1px solid;
+            width: 78%;
+        }
+    </style>
+    <script>
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-index-img-bg" id="container-index-img-b" style="background-image:url({{URI}});"></div>
+    <div class="container">
+
+        <h1 class="celebration-text">🎉 Minting Successful! 🎉</h1>
+        <div class= "image-and-table">
+            <img class="minted-img" src="{{URI}}">
+            <table style="    border-left: 1px solid;">
+                <tr>
+                    <th>NFT Id:</th>
+                    <td><div class="nft-details">
+                        <p class="nft-id">{{ nftoken_id }}<button class="copy-button"
+                            onclick="copyToClipboard('{{ nftoken_id }}')"><span class="tooltip"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210.107 210.107" width="20px" height="20px" class="change-fill" fill="#00B1C1" style="outline: none; margin-bottom: -3px;"><g><path d="M168.506,0H80.235C67.413,0,56.981,10.432,56.981,23.254v2.854h-15.38   c-12.822,0-23.254,10.432-23.254,23.254v137.492c0,12.822,10.432,23.254,23.254,23.254h88.271   c12.822,0,23.253-10.432,23.253-23.254V184h15.38c12.822,0,23.254-10.432,23.254-23.254V23.254C191.76,10.432,181.328,0,168.506,0z   M138.126,186.854c0,4.551-3.703,8.254-8.253,8.254H41.601c-4.551,0-8.254-3.703-8.254-8.254V49.361   c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.253,3.703,8.253,8.254V186.854z M176.76,160.746   c0,4.551-3.703,8.254-8.254,8.254h-15.38V49.361c0-12.822-10.432-23.254-23.253-23.254H71.981v-2.854   c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.254,3.703,8.254,8.254V160.746z"></path></g></svg><span class="tooltiptext"></span></span></button></p>                        
+                    </div></td>
+                </tr>
+                <tr>
+                    <th>Title:</th>
+                    <td>{{title}}</td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>{{description}}</td>
+                </tr>
+                <tr>
+                    <th>Author:</th>
+                    <td>{{author}}</td>
+                </tr>
+                <tr>
+                    <th>Taxon:</th>
+                    <td>{{taxon_value}}</td>
+                </tr>
+                <tr>
+                    <th>URI:</th>
+                    <td>{{ipfs_cid}}</td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</body>
+<br><br>
+<div style="text-align: center;">
+    <a href="{% url 'home' %}"
+        style="color: white; text-decoration: none; background-color: #333; padding: 7px 12px; border-radius: 5px; display: inline-block; font-size: 14px">Back
+        to Home</a>
+</div>
+
+</html>
+{% endblock %}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Material-UI CSS -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@mui/material@5.4.1/dist/material.min.css"
+integrity="sha384-j8OqDHD5OR6Xfxt2upFqF7r6I8B01AK3z5hv/njiSuhp6a2KC5Bt7Ql4r2mlY8lM"
+crossorigin="anonymous"
+/>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/mintForm.css' %}">
+    <link rel="stylesheet" href="{% static 'style/navbar.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+    <link rel="stylesheet" href="{% static 'style/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'style/explore.css' %}">
+    <link rel="stylesheet" href="{% static 'style/collections.css' %}">
+  </head>
+  <body >
+   
+    <nav class="navbarG" id="navbarG">
+      <div class="img-log">
+        <a href="{% url 'home' %}"><span class="img-log-t">{ X }</span> <span class="nav-text">XRPLNFT</span></a>
+      </div>
+      <div class="nav-items">
+        <ul class="nav-items-list">
+          <li class="nav-item">
+            <a  href="{% url 'explore' %}">Explore</a>
+          </li>
+          <li class="nav-item nav-item-offer" id="offersBtn" >
+            <p class="item-offer" style="color: white;
+            font-size: 1.2rem;
+            font-weight: 500;cursor:pointer">Offers</p>
+            <div class="menu">
+              <!-- Add menu items here -->
+              <a href="{% url 'create_sell_offer' %}">Create Sell Offer</a>
+              <a href="{% url 'getdata' %}">Accept Sell Offer</a>
+              <a href="{% url 'create_buy_offer' %}">Create Buy Offer</a>
+              <a href="{% url 'getdata' %}">Accept Buy Offer</a>
+          </div>
+          </li>
+          <li class="nav-item">
+            <a  href="{% url 'collections' %}">Collections</a>
+          </li>
+          <li class="nav-item">
+            <a  href="{% url 'mint_nft' %}">Create</a>
+          </li>
+          <li class="nav-item" id="loginBtn">
+            {% if account|length > 0 %}
+                <h3>{{ account }}</h3>
+                <img src="https://freesvg.org/img/abstract-user-flat-4.png" style="width: 42px;
+                    background: white;
+                    border-radius: 50%;"/>
+            {% else %}
+                <h3>{{ account }}</h3>
+                <img src="https://cdn-icons-png.flaticon.com/512/17/17636.png" style="width: 42px;
+                    background: white;
+                    border-radius: 50%;"/>
+            {% endif %}
+        </li>
+
+        </ul>
+      </div>
+    </nav>
+    
+    <!-- The login pop-up (initially hidden) -->
+    <div id="loginPopup" class="popup hidden">
+      {% if account|length > 0 %}
+      <div class="popup-content" id="popup-content">
+          <a target="_self"  href="{% url 'xumm_view' %}">
+            <button type="submit"> Profile</button>
+          </a>
+          <a target="_self"  href="{% url 'mint_nft' %}">
+            <button type="submit">Create a NFT</button>
+          </a>
+          <a target="_self"  href="{% url 'mint_nft' %}">
+            <button type="submit">Settings</button>
+          </a>
+        <hr/>
+          <p>{{account}}</p>
+          <a href="{% url 'mint_nft' %}">
+            <button class="btn-index-c">Logout</button>
+          </a>
+      </div>
+      {% else %}
+      <div class="popup-content" id="popup-content">
+        <img src="https://xrpnft.com/static/xumm.jpg" style="width:30px;border-radius: 50%;"/>
+        <a target="_self"  href="{% url 'xumm_view' %}">
+          <button type="submit"> XUMM Login</button>
+        </a>
+      </div>
+      {% endif %}  
+    </div> 
+    
+    
+    <!-- The OR pop-up (initially hidden) -->
+    {% comment %} <div id="qrPopup" class="orpopup orhidden">
+      <div class="orpopup-content" id="orpopup-content">
+        <img src="https://xumm.app/sign/a4555c1c-7209-46e2-ac4c-50544e76c3d2_q.png"/>
+      </div>
+    </div> {% endcomment %}
+
+

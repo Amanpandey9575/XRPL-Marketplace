@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(18 22 25);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .header {
+            color: #007bff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .message-container {
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 36px;
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background-color: #f0f0f042; /* Light gray color */
+            color: white; /* Dark gray text color */
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px -14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sell-info {
+            text-align: left;
+            margin-top: 24px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            border-bottom: 1px solid #3498db;
+        }
+
+        {% comment %} #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        } {% endcomment %}
+
+        .thank-you {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+            opacity: 0; /* Initially hide the message */
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    {% comment %} <video autoplay muted loop id="background-video">
+        <source src="/static/image/backgroundVideo.mp4" type="video/mp4">
+    </video> {% endcomment %}
+    <div class="container">
+        <div class="success-icon">🎉</div>
+        <div class="header">Transaction Status</div>
+
+        <!-- Success Message Container -->
+        <div class="message-container">
+            <div class="message">Your sell offer was successfully submitted.</div>
+        </div>
+
+        <div class="sell-info">
+            <div class="info-box"><strong>Sell Offer Transaction:</strong><br><br> {{sell_offer_tx}}</div>
+            <div class="info-box"><strong>Client:</strong><br><br> {{client}}</div>
+            <div class="info-box"><strong>Owner Wallet:</strong><br><br> {{owner_wallet}}</div>
+        </div>
+        
+        <!-- Thank you message with animation -->
+        <div class="thank-you show">Thank you for using our service!</div>
+        
+        <h2><a href="{% url 'home' %}" class="back-link">Back to Home</a></h2>
+    </div>
+
+    <script>
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the thank you message element
+            const thankYouElement = document.querySelector('.thank-you');
+
+            // Add the 'show' class to trigger the animation
+            thankYouElement.classList.add('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+{% extends "nft_api/base.html" %}
+
+
+{% comment %} {% include 'header.html' %} {% endcomment %}
+
+{% block contentStart %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Create Buy Offer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      /* background-image: url(/static/image/nft1.jpg); */
+      /* background-size: cover; */
+      /* font-family: Arial, sans-serif; */
+      background-color: #121619;
+      /* background-size: cover; */
+      /* background-repeat: no-repeat; */
+      background-attachment: fixed;
+
+    }
+
+    /* h1 {
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    } */
+
+    form {
+      background-color: transparent;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 323px;
+      margin: 0 auto;
+      height: 464px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      background-color: #0d1f31;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+
+    }
+
+    .button-container {
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      /* Light gray border */
+      border-top: 8px solid #011f3b;
+      /* Blue border on top */
+      border-radius: 50%;
+      /* Make it circular */
+      width: 50px;
+      /* Set the loader's width */
+      height: 50px;
+      /* Set the loader's height */
+      animation: spin 2s linear infinite;
+      /* Add an animation */
+      margin: 0 auto;
+      /* Center the loader on the screen */
+    }
+
+    /* Keyframes for the animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .container_w {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000e29;
+      align-content: center !important;
+      width: 15%;
+      border-radius: 10px;
+      padding: 5px;
+
+    }
+
+    .contetn-loading {
+      color: white;
+      font-size: 2rem;
+      margin-right: 19px;
+    }
+
+    .main-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+
+    /*  menu*/
+    .nav-menu {
+      background-color: rgb(0, 0, 0);
+      width: 250px;
+      height: 100vh;
+      margin: 0;
+      padding: 10px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      top: 12%;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      font-size: 25px
+    }
+
+    li {
+      width: 100%;
+      color: #fff;
+      padding: 20px;
+    }
+
+    li:hover {
+      background-color: #fff;
+      cursor: pointer;
+      color: #000;
+    }
+
+    li:active {
+      background-color: rgb(133, 211, 207);
+    }
+
+    /* profile  */
+    .Hnav1 img {
+      margin-left: 106rem;
+      display: flex;
+      border-radius: 50%;
+      position: absolute;
+      width: 5rem;
+      box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 7rem;
+      display: none;
+      flex-direction: column;
+      gap: 2rem;
+      margin-right: 0rem;
+      border: 1px solid gray;
+      width: 14%;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .dropdown-menu label {
+      color: white;
+      text-align: center;
+    }
+
+    .nft-form-container {
+      display: flex;
+    }
+
+    .nft-container {
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      /* flex-direction: column; */
+      max-height: 242px;
+      gap: 10px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin-left: 4.7rem;
+      max-width: 693px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+    }
+
+    .nft-data {
+      /*padding: 0.6rem 0.3rem;*/
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nft-data-img {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nft-data-img-s {
+      border-radius: 23px 23px 23px 23px;
+      padding: 4px;
+      /* border: 1px solid #007bff; */
+      margin-top: 8px;
+      width: 119px;
+      height: 102px;
+      /* border-radius: 32% 5px 5px 32%;
+        border-radius: 32% 32% 5px 5px; */
+    }
+
+    input[type='radio'] {
+      width: 1rem;
+      padding-bottom: 0.4rem;
+    }
+
+
+    .nft-container::-webkit-scrollbar-track,
+    #nft-container::-webkit-scrollbar-track {
+      border: 1px solid black;
+      background-color: #F5F5F5;
+    }
+
+    .nft-container::-webkit-scrollbar,
+    #nft-container::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F5F5F5;
+    }
+
+    .nft-container::-webkit-scrollbar-thumb,
+    #nft-container::-webkit-scrollbar-thumb {
+      background-color: #000f2c;
+    }
+
+    .data {
+      position: relative;
+      color: transparent;
+      width: 43rem;
+      left: 25rem;
+      line-height: 2rem;
+      border: 2px solid gray;
+      background-color: transparent;
+      height: 13rem;
+      gap:2rem;
+    }
+
+    #nft-container {
+      /* width: 40%; */
+      max-height: 335px;
+      overflow-y: auto;
+      margin-left: -20rem;
+      display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding:5px 2%;
+
+    }
+    .account-name-lo{
+      position: relative;
+      /*border: 1px solid green;*/
+      height: 146px;
+      border-radius: 10% 10% 0% 0%;
+      background:rgba(37, 37, 37, 0.7);
+
+    }
+
+    .account-name {
+      /* border: 1px solid red;
+    background-color: white; */
+    color: white;
+    position: absolute;
+    top: 40%;
+    font-size: 6rem;
+    left: 25%;
+   
+    }
+
+    .nft-data-c {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .buy_offer_heading {
+      color: white;
+      margin-left: 84px;
+    }
+
+    .xrpl_accounts_heading {
+      color: white;
+      margin-left: 84px;
+    }
+
+    .data-nft-container{
+      display:flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+
+.nft-form-buy-p{
+  font-size: 1.3rem;
+    margin-top: 2rem;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container-index-img-bg" id="sellDynamicImage" style="height:100%;position:fixed;"></div>
+  <div class="buy_offer_heading">
+    <h1>Create a Buy Offer for Available NFTs</h1>
+    {% comment %} <p>Click on the NFT id for which you want to create the offer</p> {% endcomment %}
+  </div>
+
+  <div class="xrpl_accounts_heading">
+      <h3>Click on the Account name button to create the offer</h3>
+  </div>
+
+  <div class="data" id="nft-container">
+    {% for xrpl_accountss in xrpl_accounts %}
+    <div class="data-nft-container">
+      <div class="account-name-lo">
+      <div class="account-name">{{xrpl_accountss.user__username|slice:":1"|upper}}</div>
+      </div>
+      <div class="nft-data">
+      <button class="seed-Data-Value2" style=" height:3rem; border-radius:0 0 5px 5px" type="button"
+        data-value2={{xrpl_accountss.seed}}>{{xrpl_accountss.user__username}} XRPL Account</button>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+
+
+
+
+    <div id="main_c" class="main-container">
+    <div id="conta_w" class="container_w">
+      <div id="loader"></div>
+      <div class="contetn-loading" style="margin-right: '10px';">Loading...</div>
+    </div>
+  </div>
+<div class="buy_offer_heading">
+    <p class="nft-form-buy-p">Click on the choose NFT button to Select the NFT</p>
+  </div>
+  <div class="nft-form-container">
+    <div class="nft-container" id="nft-containerID">
+      <!-- <li>NFT ID: {{ NFTs.forloop.counter0 }}</li> -->
+      {% for nft,uri in nft_uri_pairs %}
+      <div class="nft-data-c">
+        <!-- <div class="nft-data-img"> -->
+        <img class="nft-data-img-s" src={{uri}} style="    width: 197px;
+        height: 166px;" />
+        <div class="nft-data">
+          <button class="nft-Data-Value" style="width: 100%;height: 3rem;" type="button"
+            data-value={{nft}}>Choose NFT</button>
+        </div>
+
+        
+        <!-- </div> -->
+      </div>
+      {% endfor %}
+
+      <!--image data  -->
+
+    </div>
+    <form method="post" enctype="multipart/form-data" id="mint-form">
+
+      {% csrf_token %}
+      <label for="{{ form.seed.id_for_label }}" style="color: #fbf9f9;"></label>
+      {{ form.seed }}
+      <label for="{{ form.nft_id.id_for_label }}" style="color: #fbf9f9;"></label>
+      {{ form.nft_id }}
+      <label for="{{ form.owner.id_for_label }}" style="color: #fbf9f9;"></label>
+      {{ form.owner }}
+
+      {% comment %} <label for="expiration" style="color:#fbf9f9">Expiration: </label>
+      <input id="expiration" type="text" name="expiration" value=""
+        placeholder="Enter a number of seconds until Expiration" /> {% endcomment %}
+
+      <label for="amount" style="color:#fbf9f9">Amount: </label>
+      <input id="amount" type="text" name="amount" value="" placeholder="Amount in drops (millionths of an XRP) " />
+
+
+      <div class="button-container">
+        <button id="btn-loader" type="submit" style="background-color: #01102d;padding: 0.8rem; font-size: 16px;">Create
+          Offer</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    const btnLoader = document.getElementById('btn-loader');
+    const loader = document.getElementById('loader');
+    // const data1 = document.getElementById("data1")
+
+    const seedId = document.getElementById('id_seed');
+    const nftId = document.getElementById('id_nft_id');
+    const expId = document.getElementById('expiration');
+    const amountId = document.getElementById('amount');
+
+    const main_c = document.getElementById('main_c');
+    const conta_w = document.getElementById('conta_w');
+    const hide = document.getElementById('hidden');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // JavaScript to handle button click event
+      const nftButtons = document.querySelectorAll('.nft-Data-Value');
+      const seedButtons = document.querySelectorAll('.seed-Data-Value2');
+
+      nftButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const nftValue = this.getAttribute('data-value');
+          console.log(nftValue);
+          document.getElementById('id_nft_id').value = nftValue;
+          
+          // Reset the background color for all buttons
+          nftButtons.forEach(b => {
+            b.style.backgroundColor = '#0d1f31';
+          });
+
+        // Change the background color of the clicked button
+        this.style.backgroundColor = '#0056b3';
+        });
+      });
+
+      //for seed data fill into input
+
+      seedButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const seedValue = this.getAttribute('data-value2');
+          console.log(seedValue);
+          document.getElementById('id_seed').value = seedValue;
+          // Reset the background color for all buttons
+          seedButtons.forEach(b => {
+            b.style.backgroundColor = '#0d1f31';
+          });
+
+        // Change the background color of the clicked button
+        this.style.backgroundColor = '#0056b3';
+        });
+
+      });
+    });
+
+    btnLoader.addEventListener('click', () => {
+
+      if (seedId.value === '') return
+      if (nftId.value === '') return
+      if (expId.value === '') return
+      if (amountId.value === '') return
+      hide.style.display = 'none';
+      main_c.style.display = "flex";
+      // {% comment %} conta_w.classList.add('container_w'); {% endcomment %}
+      loader.classList.add('loader');
+    });
+
+    //profile
+    const Hnav1 = document.getElementById('HnavId')
+
+    function toggleDropdown() {
+      // console.log('hii');
+      let dropdownMenu = document.getElementById("myDropdown");
+      if ((dropdownMenu.style.display === "none") || (dropdownMenu.style.display === '')) {
+        dropdownMenu.style.display = "flex";
+      } else {
+        dropdownMenu.style.display = "none";
+
+      }
+    }
+
+    //
+    Hnav1.addEventListener('click', toggleDropdown);
+
+
+
+
+    btnLoader.addEventListener('click', () => {
+      if (seedId.value === '') return
+      if (nftId.value === '') return
+      if (expId.value === '') return
+      if (amountId.value === '') return
+
+      hide.style.display = 'none';
+      loader.classList.add('loader');
+    });
+
+
+
+  </script>
+</body>
+
+</html>
+
+
+{% endblock %}

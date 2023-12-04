@@ -1,0 +1,118 @@
+{% extends "nft_api/base.html" %}
+
+{% block contentStart %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<style>
+    body{
+        background: #121619;
+    }
+    .container {
+        text-align: center;
+        background-color: #f5f5f559;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        max-width: 774px;
+        margin: 0 auto;
+    }
+    
+    .title {
+        font-size: 24px;
+        color: #333;
+        margin-top: 20px;
+    }
+    
+    .nft-image {
+        max-width: 100%;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+        height: 260px;
+        width: 384px;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #333;
+        color: #fff;
+        font-size:16px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+        
+    }
+    
+    /* tr:hover {
+        background-color: #ddd;
+    } */
+    
+    td {
+        border-bottom: 1px solid #ddd;
+        color: black;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    /* Add more custom styles as needed */
+    
+</style>
+<body>
+    <div class="container-index-img-bg" id="container-index-img-b" style="background-image:url({{image}}); height:100%;position:fixed;"></div>
+    <div class="container">
+        <h1 class="title">NFT Details</h1>
+
+        <img src="{{ image }}" alt="NFT Image" class="nft-image">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>NFT ID</td>
+                    <td>{{ NFTokenID }}</td>
+                </tr>
+                <tr>
+                    <td>Issuer</td>
+                    <td>{{ Issuer }}</td>
+                </tr>
+                <tr>
+                    <td>Taxon</td>
+                    <td>{{ NFTokenTaxon }}</td>
+                </tr>
+                <tr>
+                    <td>Serial</td>
+                    <td>{{ nft_serial }}</td>
+                </tr>
+                <tr>
+                    <td>Flag</td>
+                    <td>{{ Flag }}</td>
+                </tr>
+                <tr>
+                    <td>URI</td>
+                    <td>{{ decoded_uri }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+{% endblock  %}

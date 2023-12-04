@@ -1,0 +1,372 @@
+{% extends "nft_api/base.html" %}
+{% block contentStart %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XRPL Accounts</title>
+    <style>
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .xrplbtn{
+                margin-left:31rem;
+            font-weight: 700;                
+        }
+        .xrplbtn a{
+            text-decoration: none;
+        }
+
+        form {
+          margin-top: 0.5rem !important;
+            background-color: #fff;
+            /* padding: 20px; */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;            
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+            border: 1px solid #ccc;
+        }
+
+          input[type=file]::file-selector-button:hover {
+            background: #0d45a5;
+          }
+
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .hideContent{
+            display: none
+                }
+
+        .loader {
+            display: block;
+            border: 8px solid #f3f3f3; /* Light gray border */
+            border-top: 8px solid #3498db; /* Blue border on top */
+            border-radius: 50%; /* Make it circular */
+            width: 50px; /* Set the loader's width */
+            height: 50px; /* Set the loader's height */
+            animation: spin 2s linear infinite; /* Add an animation */
+            margin: 0 auto; /* Center the loader on the screen */
+          }
+        
+          /* Keyframes for the animation */
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .container_w{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000e29;
+            align-content:center !important;
+            width: 15%;
+            border-radius:10px ;
+            padding: 5px;
+
+          }
+          .contetn-loading{
+            color: white;
+            font-size: 2rem;
+            margin-right: 19px;
+          }
+
+          .main-container{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+          }
+
+
+      /* profile  */
+      .Hnav1 img{
+      margin-left: 106rem;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    width: 5rem;
+    box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    .dropdown-menu{
+    position: absolute;
+    right: 0;
+    top: 7rem;
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    margin-right: 0rem;
+    border: 1px solid gray;
+    width: 14%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    }
+
+    .dropdown-menu label{
+      color: white;
+      text-align: center;
+    }
+
+    .user-main-container{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .user-name{
+    display: flex;
+    color: white;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem;
+}
+    
+    .user-icon {
+        display: table-cell;
+    background-color: black;
+    margin: 10px;
+    border-radius: 50%;
+  color: white;
+  vertical-align: middle; 
+  text-align: center;
+  text-decoration: none;
+  height: 80px;
+  width: 80px;  
+  font-size: 30px;
+  text-transform: capitalize;
+}
+
+/* Styles for the user container */
+.user-container-data {
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    flex-basis: 30%;
+}
+
+
+
+.user-n {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    color: black;
+}
+
+/* Styles for account address */
+.add-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.add-label-value {
+    margin-left: 5px;
+    color: #777;
+}
+
+/* Styles for the submit button */
+input[type="submit"] {
+    background-color: #007BFF;
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 16px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+/* Hover effect for the card */
+.user-container-data:hover {
+    transform: scale(1.05); /* Increase size on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
+}
+.accounts-text-hp{
+    margin-left: 3.4%;
+    margin-top:1%;
+}
+.wrapper {
+
+    position: relative;
+  }
+  
+  .ribbon-wrapper-green {
+    width: 85px;
+    height: 88px;
+    overflow: hidden;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+  }
+  
+  .ribbon-green {
+    font: bold 15px Sans-Serif;
+    color: #333;
+    text-align: center;
+    text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform:    rotate(45deg);
+    -ms-transform:     rotate(45deg);
+    -o-transform:      rotate(45deg);
+    position: relative;
+    padding: 7px 0;
+    left: -5px;
+    top: 15px;
+    width: 120px;
+    background-color: #BFDC7A;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45)); 
+    background-image: -webkit-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:    -moz-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:     -ms-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:      -o-linear-gradient(top, #BFDC7A, #8EBF45); 
+    color: #6a6340;
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+    -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+    box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+  }
+  
+  .ribbon-green:before, .ribbon-green:after {
+    content: "";
+    border-top:   3px solid #6e8900;   
+    border-left:  3px solid transparent;
+    border-right: 3px solid transparent;
+    position:absolute;
+    bottom: -3px;
+  }
+  
+  .ribbon-green:before {
+    left: 0;
+  }
+  .ribbon-green:after {
+    right: 0;
+  }
+
+@media screen and (max-width: 696px){
+    .user-container-data{flex-basis: 80%;}
+    .accounts-text-hp {
+        margin-left: 10%;}
+}
+</style>
+</head>
+<body>
+    <div id="user-main-container" class="user-main-container">
+        {% for account_data in offers_data %}
+            <div class="user-container-data wrapper">
+                {% if account_data.has_sell_offers or account_data.has_buy_offers %}
+                {% comment %} {% if account_data.has_sell_offers %}
+                    <li style="color:green;">Sell Offers Available</li>
+                {% endif %}
+                {% if account_data.has_buy_offers %}
+                    <li style="color:orange;">Buy Offers Available</li>
+                {% endif %} {% endcomment %}
+                <div class="ribbon-wrapper-green" >
+                    <div class="ribbon-green" style="color:white;">Offers</div>        
+                </div>
+            {% else %}
+            <div class="ribbon-wrapper-green">
+                <div class="ribbon-green" style="background:red; color:white">No Offers</div>        
+            </div>
+                <li style="color:red;"></li>
+            {% endif %}
+                <div class="user-name">
+                    <div class="inon-c">
+                        <div class="user-icon" style="display: table-cell;">{{ account_data.account.user.username.0 }}</div>
+                    </div>
+                    <div class="user-n">{{ account_data.account.user.username }}</div>
+                </div>
+                
+
+                <div class="user-address" style="margin: 0.5rem 0;">
+                    <span class="add-label">Acc Addr.:</span> <span class="add-label-value"> {{ account_data.account.account_address }}</span>
+                </div>
+                <div class="user-seed" style="margin: 0.5rem 0; color: black; opacity: 0.7; display:none;">
+                    <span>Seed:</span> {{ account_data.account.seed }}
+                </div>
+                <form id="btn-loader111" method="post" action="{% url 'find_nfts' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="seed" value="{{ account_data.account.seed }}">
+                    <input class="btn-loader1" type="submit" value="Explore NFTs and Offers">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+         
+      <div id="main_c" class="main-container">
+          <div id="conta_w" class="container_w">
+              <div id="loader"></div>
+              <div class="contetn-loading" style="margin-right: '10px';">Loading...</div>
+          </div>
+          </div>
+          
+    
+          
+    
+           
+      
+
+      
+
+       
+</body>
+</html>
+
+{% endblock %}

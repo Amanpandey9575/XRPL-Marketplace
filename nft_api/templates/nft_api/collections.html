@@ -1,0 +1,78 @@
+{% extends "nft_api/base.html" %}
+
+{%  block contentStart %}
+
+
+
+<div class="container-top-collection-table collection-container">
+  <div class="collections-heading">
+    <h1>
+      Explore Accounts
+    </h1>
+    <h2>
+      Discover the leading NFT accounts on XRPLNFT, ranked by metrics such as volume, and other key stats.
+    </h2>
+  </div>
+  <div class="top-collection-table">
+    <table>
+      <thead>
+        <tr class="thead-th">
+          <th class="thead-th-1">Account</th>
+          <th class="thead-th-2">User Name</th>
+          <th class="thead-th-3">Created At</th>
+          <!-- <th class="thead-th-4">Items</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for account in accounts %}
+          <tr class="table-row-d">
+            <td class="table-col-1" style="display: flex; flex-direction: row; gap: 2rem; align-items: center;">
+              <a href="{% url 'allnfts' account_address=account.account_address %}">
+                
+                <!-- <div class="user--number">{{ forloop.counter }}</div> -->
+                <div class="user--name" style="text-align: center; font-size: 3rem;">{{ account.user__username|slice:":1"|upper }}</div>
+              </a>
+            </td>
+            <td class="table-col-2">{{ account.user__username }}</td>
+            <td class="table-col-3">{{ account.created_at|date:"M. d, Y" }}</td>
+            <!-- <td class="table-col-4">
+
+              {{ nft_counts|slice:forloop.counter0 }}
+            </td> -->
+          </tr>
+          {{ nft_length }}
+          {% comment %} <a href="{% url 'allnfts' account_address=account.account_address %}">
+            <p>{{account.account_address}}</p>
+          </a> {% endcomment %}
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  
+  <div class="container">
+    {% for post in page_obj.object_list %}
+      {# note that the list of posts are in the page_obj.object_list not page_obj #}
+        <h1>{{post.title}}</h1>
+        <small>{{post.author}}</small>
+         
+<p>{{post.content}}</p>
+
+        <hr/>
+     {% endfor %}
+</div>
+<center>
+    {%if page_obj.has_previous %} {# whether the previous page exists #}
+        <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+    {% endif %}
+    <span>{{page_obj.number}}</span> {# the current page number #}
+   
+    {%if page_obj.has_next %} {# whether the next page exists #}
+        <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+    {% endif %}
+</center>
+{% endblock  %}
+<script>
+</script>

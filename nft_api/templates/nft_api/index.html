@@ -1,0 +1,89 @@
+{% extends "nft_api/base.html" %}
+
+
+{% comment %} {% include 'header.html' %} {% endcomment %}
+
+{% block contentStart %}
+
+    <div class="nft-container" id="nft-containerID">
+      {% if final_random_uri %}
+      <div class="container-index-img-bg" id="container-index-img-b" style="background-image:url({{final_random_uri}});">
+                  {% else %}
+                  <div class="container-index-img-bg" id="container-index-img-b" style="background-image:url('https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg');">
+                {% endif %}       
+      
+      </div>
+        <div class="container-index-rows">
+          <div class='row'>
+            <div class='col col-1'>
+              <div class="col-h-p">
+                    <h2 class="col-h">Discover, collect and sell NFTs</h2>
+                    <p>XRPNFT is a fee-free platform for trading XRPL NFTs on the XRP Ledger, connecting creators and collectors in a <span id="result-colo" style="font-weight:bold;color:black">seamless NFT marketplace.</span></p>
+              </div>
+              <div class="index-banner-btn">
+                <a href="{% url 'explore' %}" class="col-1-btn">
+                <button class="btn-index-e">Explore</button>
+                </a>
+                <a href="{% url 'mint_nft' %}" class="col-1-btn">
+                <button class="btn-index-c">Create</button>
+                </a>
+              </div>  
+                  </div>
+            <div class='col col-2'>
+              <a href="#">
+                <div class="col-2-card">
+                  {% if final_random_uri %}
+                  <img id="index-img-b"  src="{{final_random_uri}}"/>
+                  {% else %}
+                <img id="index-img-b"  src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg"/>
+                {% endif %}
+                <h2>x{{ account_name }}</h2>
+                </div>
+              </a>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container-top-collection-table">
+    <div class="top-collect-heading">
+        <h2>Users</h2>
+    </div>
+      <div class="top-collection-table">
+        <table>
+          <thead>
+            <tr class="thead-th">
+              <th class="thead-th-1">Account</th>
+              <th class="thead-th-2">User Name</th>
+              <th class="thead-th-3">Created At</th>
+              {% comment %} <th class="thead-th-4">Items</th> {% endcomment %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for account in accounts %}
+            {% if forloop.counter <= 8 %}
+              <tr class="table-row-d">
+                <td class="table-col-1" style="display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                align-items: center;"><div class="user--number">{{forloop.counter}}</div> <div class="user--name" style="text-align: center;font-size: 3rem;">{{account.user__username|slice:":1"|upper}}</div></td>
+                
+                <td class="table-col-2">{{ account.user__username }}</td>
+                <td class="table-col-3">{{ account.created_at|date:"M. d, Y" }}</td>
+                {% comment %} <td class="table-col-4">{{forloop.counter|add:5}}</td> {% endcomment %}
+              </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a href="{% url 'collections' %}" style="display: block;
+    text-align: center" class="index-coll-btn">
+    <button class="btn-index-e">See All Accounts</button>
+    </a>
+
+{% comment %} {% include "nft_api/collections.html" %} {% endcomment %}
+
+
+{% endblock  %}

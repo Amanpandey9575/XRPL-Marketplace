@@ -1,0 +1,60 @@
+{% extends "nft_api/base.html" %}
+
+{% block contentStart %}
+{% if nft_length %}
+<h3 class="explore-h3">These are the NFTs created by you. You can check the NFT details by clicking on the image and can also get the offers associated with it by clicking on the offers button. </h3>
+<h4 class="explore-mobile-h4">These are the NFTs created by you.</h4>
+<div>
+
+<div class="explore-container-nft">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% if user_name %}
+            {% for nft, uri in nft_uri_pairs %}
+            <div class="swiper-slide">
+                <a class="expore-nft-link" href="{% url 'nft_detail' nft %}">
+                    <div class="expore-nft-img ">
+                        <img class="expore-img" style="width: 100%; height: 75%;" src="{{uri}}"/>
+                        <div class="explore-text">
+                            <div style="font-weight: bold;" class="explore-text-u">x{{user_name}} #{{ nft|slice:"-3:"}}</div>
+                            <div>
+                                <form method="post" action="{% url 'get_offers' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="nft_id" value="{{ nft }}">
+                                    <button type="submit" name="get_offers">Offers</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+            
+        </div>
+        <!-- Add pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add navigation buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+</div>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+
+
+{% endblock %}

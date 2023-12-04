@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XRPL Account Details</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0%;
+            box-sizing: border-box;
+          }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Style the button */
+        .accept-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px; /* Adjust padding for better display */
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none; /* Remove underline from the link */
+            display: inline-block;
+            border-radius: 5px; /* Add rounded corners */
+        }
+    
+        /* Change button color on hover */
+        .accept-button:hover {
+            background-color: #45a049;
+        }
+
+
+
+
+       
+
+              body {
+                  font-family: Arial, sans-serif;
+                  background-color: #f4f4f4;
+                  background-image: url('https://static.vecteezy.com/system/resources/previews/011/529/287/non_2x/nft-technology-background-made-with-binary-code-non-fungible-token-digital-crypto-art-blockchain-tech-concept-investment-in-cryptographic-matrix-background-with-digits-1-0-illustration-vector.jpg');
+                  background-size: cover;
+              }
+              h1 {
+                  color: #333;
+                  text-align: center;
+                  padding: 20px;
+              }
+              form {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                max-width: 341px;
+                margin: 0 auto;
+                height: 240px;
+                margin-right: 8rem;
+              }
+              label {
+                  display: block;
+                  margin-bottom: 8px;
+                  color: #666;
+              }
+              input[type="text"],
+              textarea {
+                  width: 100%;
+                  padding: 10px;
+                  margin-bottom: 15px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  font-size:15px;
+              }
+              textarea {
+                  resize: vertical;
+              }
+              button {
+                  background-color: #007bff;
+                  color: #fff;
+                  border: none;
+                  padding: 10px 20px;
+                  border-radius: 4px;
+                  cursor: pointer;
+              }
+              button:hover {
+                  background-color: #0056b3;
+              }
+      
+              .hideContent{
+                  display: none
+                      }
+      
+              .loader {
+                  display: block;
+                  border: 8px solid #f3f3f3; /* Light gray border */
+                  border-top: 8px solid #3498db; /* Blue border on top */
+                  border-radius: 50%; /* Make it circular */
+                  width: 50px; /* Set the loader's width */
+                  height: 50px; /* Set the loader's height */
+                  animation: spin 2s linear infinite; /* Add an animation */
+                  margin: 0 auto; /* Center the loader on the screen */
+                }
+              
+                /* Keyframes for the animation */
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+      
+                .container_w{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background: #000e29;
+                  align-content:center !important;
+                  width: 15%;
+                  border-radius:10px ;
+                  padding: 5px;
+      
+                }
+                .contetn-loading{
+                  color: white;
+                  font-size: 2rem;
+                  margin-right: 19px;
+                }
+      
+                .main-container{
+                  display: none;
+                  justify-content: center;
+                  align-items: center;
+                  margin-top: 1rem;
+                }
+      
+              .nav-menu {
+              background-color: rgb(0, 0, 0);
+              width: 250px;
+              height: 88vh;
+              margin: 0;
+              padding: 10px;
+              list-style: none;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+              position: absolute;
+              top: 12%;
+            }
+      
+            .nav-menu a {
+              text-decoration: none;
+              font-size: 25px
+            }
+      
+            li {
+              width: 100%;
+              color: #fff;
+              padding: 20px;
+            }
+      
+            li:hover {
+              background-color: #fff;
+              cursor: pointer;
+              color: #000;
+            }
+      
+            li:active {
+              background-color: rgb(133, 211, 207);
+            }
+      
+            /* profile  */
+            .Hnav1 img{
+            margin-left: 106rem;
+          display: flex;
+          border-radius: 50%;
+          position: absolute;
+          width: 5rem;
+          box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+          z-index: 1;
+          }
+      
+          .dropdown-menu{
+          position: absolute;
+          right: 0;
+          top: 7rem;
+          display: none;
+          flex-direction: column;
+          gap: 2rem;
+          margin-right: 0rem;
+          border: 1px solid gray;
+          width: 14%;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          }
+      
+          .dropdown-menu label{
+            color: white;
+            text-align: center;
+          }
+
+          .table_form{
+            margin-left: 17rem;
+            display:flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 11px;
+            gap:2rem;
+          }
+          
+          .table-container {
+            max-height: 250px;
+            overflow-y: auto; 
+            margin: 0 auto;
+          }
+
+          .table-container::-webkit-scrollbar-track,
+          .data-nft-container::-webkit-scrollbar-track
+          {
+              border: 1px solid black;
+              background-color: #F5F5F5;
+          }
+          
+          .table-container::-webkit-scrollbar,
+          .data-nft-container::-webkit-scrollbar
+          {
+              width: 10px;
+              background-color: #F5F5F5;
+          }
+          
+          .table-container::-webkit-scrollbar-thumb,
+          .data-nft-container::-webkit-scrollbar-thumb
+          {
+              background-color: #000f2c;	
+          }
+
+          .offer_index:hover{
+            background:#c4e2e5;
+            cursor:pointer;
+          }
+
+          .data-nft-container{
+            width: 28rem;
+            max-height: 242px;
+            overflow-y: auto;
+            background-color: white;
+            margin-left: 6.5rem;
+            border: 1px solid white;
+          }
+
+          .account-name{
+            color:black;
+            text-align: center;
+            margin: 6px 0;
+            font-size: 1rem;
+          }
+
+          .form__data{
+            width:41%;
+          }
+    </style>
+</head>
+<body>
+    <h1>XRPL Account Details</h1>
+    
+
+    <div id="hidden">
+
+        <div class="table_form">
+          
+        
+
+        <div class="table-container">
+          
+        <table>
+            <thead>
+                <tr>
+                    {% comment %} <th>PreviousTxnID</th> {% endcomment %}
+                    <th>Offer Index</th>
+                    <th>Owner</th>
+                    <th>Amount</th>
+                    <th>Expiration</th>
+                    {% comment %} <th>Action</th> <!-- Add a new column for the button --> {% endcomment %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for offer_data in nft_offer_data %}
+                <tr>
+                    {% comment %} <td>{{ offer_data.PreviousTxnID }}</td> {% endcomment %}
+                    <td class="offer_index" data-value={{ offer_data.index}}>{{ offer_data.index }}</td>
+                    <td>{{ offer_data.Owner }}</td>
+                    <td>{{ offer_data.Amount }}</td>
+                    <td>{{ offer_data.Expiration }}</td>
+                    <!-- Add the button with a link to the accept_buy_offer view -->
+                    {% comment %} <td><a href="{% url 'accept_buy_offer' previous_txn_id=offer_data.PreviousTxnID %}" class="accept-button">Accept Buy Offer</a></td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        <div class="data-nft-container" id="nft-container">
+          {% for xrpl_accountss in xrpl_accounts %}
+          <div class="account-name">{{xrpl_accountss}}</div>
+          <div class="nft-data">
+            <button class="seed-Data-Value2" style="width: 100%; height:3rem; font-size:18px" type="button" data-value2={{xrpl_accountss.seed}}>{{xrpl_accountss.seed}}</button>
+          </div>
+          
+          {% endfor %}
+        </div>
+        <div class="form__data">
+        <form method="post" enctype="multipart/form-data" id="mint-form">
+            {% csrf_token %}
+            <label for="{{ form.title.id_for_label }}" style="color: #333;">Seed:</label>
+            {{ form.seed }}
+            <label for="{{ form.nft_id.id_for_label }}" style="color: #333;">Offer Index:</label>
+            {{ form.offer_index }}
+    
+            <div class="button-container">
+                <button type="submit" style="background-color: #03cae8;width: 100% ;font-size: 1.5rem;">Accept</button>
+            </div>
+        </form>
+      </div>
+
+         </div>
+
+
+  
+  </div>
+  
+  <div class="nav-menu">
+    <a href="{% url 'home' %}"><li>Home</li></a>
+    <a href="{% url 'mint_nft' %}"><li>NFT Creation</li></a>
+    <a href="{% url 'create_sell_offer' %}"><li>Create Sell Offer</li></a>
+    <a href="{% url 'getdata' %}"><li>Accept Sell Offer</li></a>
+    <a href="{% url 'create_buy_offer' %}"><li>Create Buy Offer</li></a>
+    <a href="{% url 'accept_buy_offer' %}"><li>Accept Buy Offer</li></a>
+    <a href="{% url 'get_offers' %}"><li>Get Offers</li></a>
+    {% comment %} <a href="{% url 'cancel_offer' %}"><li>Cancel Offers</li></a>  {% endcomment %}
+    <!-- <a href="{% url 'broker_sale' %}"><li>Broker NFT Sale</li></a> 
+    <a href="{% url 'set_minter' %}"><li>Set Minter</li></a>
+    <a href="{% url 'mint_other' %}"><li>Mint Other</li></a> -->
+      <!-- <a href="#"><li>NFT Trading</li></a> -->
+      {% comment %} <a href="{% url 'login' %}"><li>Log Out</li></a> {% endcomment %}
+    </div>
+  
+  <div id="main_c" class="main-container">
+      <div id="conta_w" class="container_w">
+          <div id="loader"></div>
+          <div class="contetn-loading" style="margin-right: '10px';">Loading...</div>
+      </div>
+      </div>
+      
+      <script>   
+      
+      const btnLoader = document.getElementById('btn-loader');
+      const loader = document.getElementById('loader');
+      const titleId = document.getElementById('id_title');
+      const descId = document.getElementById('id_description');
+      const authorId = document.getElementById('id_author');
+      const imgId = document.getElementById('id_image');
+      
+      const main_c = document.getElementById('main_c');
+      
+      const hide = document.getElementById('hidden');
+
+
+       //auto fill
+       document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript to handle button click event
+        const nftButtons = document.querySelectorAll('.offer_index');      
+        nftButtons.forEach(button => {
+          button.addEventListener('click', function () {
+            const offerValue = this.getAttribute('data-value');
+            console.log(offerValue);
+            document.getElementById('id_offer_index').value = offerValue;
+          });
+        });
+
+        //seed fill
+        const seedButtons = document.querySelectorAll('.seed-Data-Value2');      
+        seedButtons.forEach(button => {
+          button.addEventListener('click', function () {
+            const offerValue = this.getAttribute('data-value2');
+            console.log(offerValue);
+            document.getElementById('id_seed').value = offerValue;
+          });
+        });
+      });
+
+
+      
+      btnLoader.addEventListener('click',()=>{
+          if(titleId.value ==='' ) return
+          if(descId.value ==='' ) return
+          if(authorId.value ==='' ) return
+          if(imgId.value ==='' ) return
+          
+          //  document.getElementById('contentData').style.display='block'; 
+          main_c.style.display="flex";
+          hide.style.display='none';
+          loader.classList.add('loader');
+      });
+
+     
+      
+      
+      //profile
+      const Hnav1 = document.getElementById('HnavId')
+      
+          function toggleDropdown() {
+            console.log('hii');
+              let dropdownMenu = document.getElementById("myDropdown");
+              if ((dropdownMenu.style.display === "none") ||  (dropdownMenu.style.display === ''))  {
+                  dropdownMenu.style.display = "flex";
+              }else {
+                dropdownMenu.style.display = "none";
+                  
+              }
+          }
+      
+          Hnav1.addEventListener('click',toggleDropdown);
+      </script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Buy Offer</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-image: url('/static/image/nft1.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #3498db;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-container {
+            text-align: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+            /*  menu*/
+            .nav-menu {
+        background-color: rgb(0, 0, 0);
+        width: 250px;
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        position: absolute;
+        top: 0%;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        font-size: 25px
+      }
+
+      li {
+        width: 100%;
+        color: #fff;
+        padding: 20px;
+      }
+
+      li:hover {
+        background-color: #fff;
+        cursor: pointer;
+        color: #000;
+      }
+
+      li:active {
+        background-color: rgb(133, 211, 207);
+      }
+
+      /* profile  */
+      .Hnav1 img{
+      margin-left: 106rem;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    width: 5rem;
+    box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    .dropdown-menu{
+    position: absolute;
+    right: 0;
+    top: 7rem;
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    margin-right: 0rem;
+    border: 1px solid gray;
+    width: 14%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    }
+
+    .dropdown-menu label{
+      color: white;
+      text-align: center;
+    }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: center; background-color: #66a3ff; padding: 0px; border-radius: 10px;">
+        <h1 style="color: white; font-size: 24px;">Accept Buy Offer</h1>
+    </div>
+    <h1 style="color: white; font-size: 24px;"></h1>
+    <h1 style="color: white; font-size: 24px;"></h1><br>
+    <form method="post" enctype="multipart/form-data" id="mint-form">
+        {% csrf_token %}
+        <label for="{{ form.title.id_for_label }}" style="color: #333;">Seed:</label>
+        {{ form.seed }}
+        <label for="{{ form.nft_id.id_for_label }}" style="color: #333;">Offer Index:</label>
+        {{ form.offer_index }}
+
+        <div class="button-container">
+            <button type="submit" style="background-color: #33cc33; font-size: 16px;">Accept</button>
+        </div>
+    </form>
+    <br><br><br>
+    <div style="text-align: center;">
+        <a href="{% url 'home' %}" style="color: white; text-decoration: none; background-color: #333; padding: 10px 20px; border-radius: 5px; display: inline-block; font-size: 20px">Back to Home</a>
+    </div>
+
+    <div class="nav-menu">
+      <a href="{% url 'home' %}"><li>Home</li></a>
+      <a href="{% url 'mint_nft' %}"><li>NFT Creation</li></a>
+      <a href="{% url 'create_sell_offer' %}"><li>Create Sell Offer</li></a>
+      <a href="{% url 'getdata' %}"><li>Accept Sell Offer</li></a>
+      <a href="{% url 'create_buy_offer' %}"><li>Create Buy Offer</li></a>
+      <a href="{% url 'accept_buy_offer' %}"><li>Accept Buy Offer</li></a>
+      <a href="{% url 'get_offers' %}"><li>Get Offers</li></a>
+
+        {% comment %} <a href="{% url 'login' %}"><li>Log Out</li></a> {% endcomment %}
+      </div>
+
+
+
+
+    <script>
+        //profile
+    const Hnav1 = document.getElementById('HnavId')
+    
+    function toggleDropdown() {
+      console.log('hii');
+        let dropdownMenu = document.getElementById("myDropdown");
+        if ((dropdownMenu.style.display === "none") ||  (dropdownMenu.style.display === ''))  {
+            dropdownMenu.style.display = "flex";
+        }else {
+          dropdownMenu.style.display = "none";
+            
+        }
+    }
+
+    Hnav1.addEventListener('click',toggleDropdown);
+    </script>
+</body>
+</html>

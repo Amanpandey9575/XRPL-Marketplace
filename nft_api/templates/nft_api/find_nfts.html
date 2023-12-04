@@ -1,0 +1,311 @@
+{% extends "nft_api/base.html" %}
+
+
+{% comment %} {% include 'header.html' %} {% endcomment %}
+
+{% block contentStart %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find NFTs and Sell Offers</title>
+{% comment %} <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+    
+    .container-nft-list{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        background-color: white;
+    }
+
+    .container-buy-sell{
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    }
+
+   
+    .find_nfts-img img{
+        width: 387px;
+    border: 1px solid gray;
+    }
+
+    .container-issuer-taxon{
+        display: flex;
+    flex-direction: column;
+    }
+
+    .btn-find-nfts{
+        display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    margin: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.75;
+    min-width: 64px;
+    border-radius: 10px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: rgb(244, 245, 251);
+    box-shadow: none;
+    font-weight: bold;
+    text-transform: none;
+    color: rgb(37, 37, 37);
+    padding: 12px 24px;
+    font-size: 1rem;
+    }
+
+    .sell-offer-data{
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+    }
+</style> {% endcomment %}
+<style>
+    /* CSS for the greater card */
+.container-nft-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container-buy-sell {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(50% - 10px);
+    flex-basis:500px;
+}
+
+.find_nfts-img {
+    text-align: center;
+}
+
+.find_nfts-img img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container-issuer-taxon {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    margin-left: 3%;
+    gap: 15%;
+}
+
+.sell-offer, .buy-offer {
+    margin-top: 10px;
+    padding: 4px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.sell-offer {
+    background-color: black;
+}
+
+.buy-offer {
+    background-color: transparent;
+}
+
+.sell-offer-data, .buy-offer-data {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color:black;
+}
+
+.btn-find-nfts {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Add hover effect to the buttons */
+.btn-find-nfts:hover {
+    background-color: #555;
+}
+
+.no-offer{
+    display:flex;
+    height:90vh;
+    justify-content:center;
+    align-items:center;
+}
+
+.no-offer p{
+    font-size: 1.5rem;
+}
+
+.buy-offer-data form{
+    margin-top: 0; 
+     background-color: transparent; 
+     padding: 0; 
+     border-radius: 0; 
+    box-shadow: 0;
+     max-width: 383px; 
+     margin: 0; 
+     margin-left: 0;
+     color:;
+}
+
+</style>
+
+    <script>
+        function copyOfferIndex(offerIndex) {
+            // Create a text area element and set its value to the offer index
+            var textArea = document.createElement("textarea");
+            textArea.value = offerIndex;
+
+            // Append the text area to the document
+            document.body.appendChild(textArea);
+
+            // Select the text in the text area
+            textArea.select();
+
+            // Copy the selected text to the clipboard
+            document.execCommand('copy');
+
+            // Remove the text area from the document
+            document.body.removeChild(textArea);
+
+            // Alert the user that the offer index has been copied
+            alert("Offer Index has been copied to the clipboard: " + offerIndex);
+        }
+    </script>
+
+
+</head>
+<body>
+
+    <h1>NFTs and Related Offers</h1>
+  
+
+
+<!-- ... (previous HTML code) -->
+{% if nft_list %}
+<div class="container-nft-list">
+    {% for nft in nft_list %}
+        <div class="container-buy-sell">
+            <div class="find_nfts-img">
+                <img style="width:100%;border: 1px solid gray; height:350px;" src="{{ nft.image_url }}"/>
+            </div>
+            <div class="container-issuer-taxon">
+               <div> <strong>Issuer:</strong> {{ nft.issuer }}</div>
+                <div style="width:50%;"> <strong>Taxon:</strong> {{ nft.taxon }}</div>
+            </div>
+            <!-- Add additional NFT details here -->
+                {% if nft.sell_offers %}
+                <div class="sell-offer" style="background:#ffd814;">
+                    {% comment %} <h3>Sell Offers:</h3> {% endcomment %}
+                    
+                        {% for offer in nft.sell_offers %}
+                            <div class="sell-offer-data">
+                                {% comment %} <strong>Offer Index:</strong> {{ offer.nft_offer_index }}  {% endcomment %}
+                                
+                                <div>
+                                    <div><strong>Amount:</strong> {{ offer.amount }} Drops (millionth of an XRP)</div>
+                                    <div><strong>Owner:</strong> {{ offer.owner }}</div>
+                                </div>
+                                <form method="post" action="{% url 'accept_sell_offer' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="offer_index" value="{{ offer.nft_offer_index }}">
+                                    <button style="background:#ffd814;" class="btn-find-nfts" type="submit" name="accept_offer" value="accept" {% url 'accept_sell_offer' %}>Accept Sell Offer</button>
+                                </form>
+                                <!-- Add additional sell offer details here -->
+                            </div>
+                        {% endfor %}
+                    
+                </div>
+                {% endif %}
+                
+                {% if nft.buy_offers %}
+                <div class="buy-offer" style="background-color: #fa8900a1;">
+                    {% comment %} <h3>Buy Offers:</h3> {% endcomment %}
+                    <div>
+                        {% for offer in nft.buy_offers %}
+                            {% if offer.owner == xrpl_data.account_address %}
+                            <div class="buy-offer-data">
+                                {% comment %} <strong>Offer Index:</strong> {{ offer.nft_offer_index }}  {% endcomment %}
+                                <div>
+                                <strong>Amount:</strong> {{ offer.amount }} drops
+                                </div>
+                                {% comment %} <strong>Created for:</strong> {{ offer.owner }}<br> {% endcomment %}
+                                <form method="post" action="{% url 'accept_buy_offer' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="offer_index" value="{{ offer.nft_offer_index }}">
+                                    <input type="hidden" name="seed" value="{{ seed }}">
+                                    <button style="background:#fa8900a1;" class="btn-find-nfts" type="submit" name="accept_offer" value="accept" {% url 'accept_buy_offer' %}>Accept Buy Offer</button>
+                                </form>
+                                <!-- Add additional buy offer details here -->
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+        </div>
+        {% endfor %}
+</div>
+    {% else %}
+    <!-- No NFTs and offers available in this account -->
+    <div class="no-offer">
+    <p>No NFTs and offers available in this account.</p>
+    </div>
+    {% endif %}
+</div>
+
+
+      <script>   
+      
+
+      const Hnav1 = document.getElementById('HnavId')
+      
+          function toggleDropdown() {
+            console.log('hii');
+              let dropdownMenu = document.getElementById("myDropdown");
+              if ((dropdownMenu.style.display === "none") ||  (dropdownMenu.style.display === ''))  {
+                  dropdownMenu.style.display = "flex";
+              }else {
+                dropdownMenu.style.display = "none";
+                  
+              }
+          }
+      
+          Hnav1.addEventListener('click',toggleDropdown);
+      </script>
+
+</body>
+</html>
+
+{% endblock %}

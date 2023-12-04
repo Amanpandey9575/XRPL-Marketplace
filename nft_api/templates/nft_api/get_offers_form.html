@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Buy Offer</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-image: url('/static/image/nft1.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #3498db;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+          background-color: #fff;
+          padding: 22px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          width: 600px;
+          margin-left: 83rem;
+          margin-top: -10rem;
+      }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-container {
+            text-align: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3; /* Light gray border */
+            border-top: 8px solid #011f3b; /* Blue border on top */
+            border-radius: 50%; /* Make it circular */
+            width: 50px; /* Set the loader's width */
+            height: 50px; /* Set the loader's height */
+            animation: spin 2s linear infinite; /* Add an animation */
+            margin: 0 auto; /* Center the loader on the screen */
+          }
+        
+          /* Keyframes for the animation */
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .container_w{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000e29;
+            align-content:center !important;
+            width: 15%;
+            border-radius:10px ;
+            padding: 5px;
+
+          }
+          .contetn-loading{
+            color: white;
+            font-size: 2rem;
+            margin-right: 19px;
+          }
+
+          .main-container{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+          }
+           /*  menu*/
+           .nav-menu {
+        background-color: rgb(0, 0, 0);
+        width: 250px;
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        position: absolute;
+        top: 11%;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        font-size: 25px
+      }
+
+      li {
+        width: 100%;
+        color: #fff;
+        padding: 20px;
+      }
+
+      li:hover {
+        background-color: #fff;
+        cursor: pointer;
+        color: #000;
+      }
+
+      li:active {
+        background-color: rgb(133, 211, 207);
+      }
+
+      /* profile  */
+      .Hnav1 img{
+      margin-left: 106rem;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    width: 5rem;
+    box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    .dropdown-menu{
+    position: absolute;
+    right: 0;
+    top: 7rem;
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    margin-right: 0rem;
+    border: 1px solid gray;
+    width: 14%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    }
+
+    .dropdown-menu label{
+      color: white;
+      text-align: center;
+    }
+    .nft-form-container{
+      margin-left: 26%;
+    background: white;
+    padding: 1rem 1rem;
+    width: 60%;
+    border-radius: 8px;
+    display: flex;
+    max-height: 326px;
+    gap: 10px;
+    overflow-y: auto; 
+    }
+    .nft-container1{
+      /* margin-left: 16%; */
+    background: white;
+    /* padding: 1rem 1rem; */
+    width: 40%;
+    border-radius: 8px;
+    display: flex;
+    max-height: 400px;
+    gap: 10px;
+    overflow-y: auto;
+    }
+
+.nft-data{
+      padding: 0.6rem 0.3rem;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .nft-data-img-s{
+      /* border-radius: 10% 5px 10px 10%; */      
+      padding: 3px;
+      border: 1px solid #007bff;
+      margin-top: 6px;
+      /* border-radius: 32% 5px 5px 32%; */
+      /* border-radius: 32% 32% 5px 5px; */
+
+
+    }
+
+    input[type='radio']{
+      width: 1rem;
+      padding-bottom: 0.4rem;
+    }
+
+
+    .nft-container::-webkit-scrollbar-track
+{
+	border: 1px solid black;
+	background-color: #F5F5F5;
+}
+
+.nft-container::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.nft-container::-webkit-scrollbar-thumb
+{
+	background-color: #000f2c;	
+}
+
+
+
+*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('/static/image/nft1.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #3498db;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          width: 400px;
+          margin: 0 auto;
+          margin-left: 33rem;
+
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-container {
+            text-align: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3; /* Light gray border */
+            border-top: 8px solid #011f3b; /* Blue border on top */
+            border-radius: 50%; /* Make it circular */
+            width: 50px; /* Set the loader's width */
+            height: 50px; /* Set the loader's height */
+            animation: spin 2s linear infinite; /* Add an animation */
+            margin: 0 auto; /* Center the loader on the screen */
+          }
+        
+          /* Keyframes for the animation */
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .container_w{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000e29;
+            align-content:center !important;
+            width: 15%;
+            border-radius:10px ;
+            padding: 5px;
+
+          }
+          .contetn-loading{
+            color: white;
+            font-size: 2rem;
+            margin-right: 19px;
+          }
+
+          .main-container{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+          }
+
+
+          /*  menu*/
+        .nav-menu {
+        background-color: rgb(0, 0, 0);
+        width: 250px;
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        position: absolute;
+        top: 0%;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        font-size: 25px
+      }
+
+      li {
+        width: 100%;
+        color: #fff;
+        padding: 20px;
+      }
+
+      li:hover {
+        background-color: #fff;
+        cursor: pointer;
+        color: #000;
+      }
+
+      li:active {
+        background-color: rgb(133, 211, 207);
+      }
+
+      /* profile  */
+      .Hnav1 img{
+      margin-left: 106rem;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    width: 5rem;
+    box-shadow: 2px 3px 22px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    .nft-form-container{
+      display: flex;
+      /* align-items: center; */
+      margin-top: 1rem;
+    }
+
+    .nft-container{
+      margin-left: 16%;
+      background: white;
+      padding: 1rem 1rem;
+      width: 40%;
+      border-radius:8px;
+      display: flex;
+      max-height: 400px;
+      gap: 10px;
+      overflow-y:auto ;
+    }
+
+    .nft-data{
+      padding: 0.6rem 0.3rem;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .nft-data-img-s{
+      /* border-radius: 10% 5px 10px 10%; */      
+      padding: 3px;
+      border: 1px solid #007bff;
+      margin-top: 4px;
+      /* border-radius: 32% 5px 5px 32%; */
+      /* border-radius: 32% 32% 5px 5px; */
+
+
+    }
+
+    input[type='radio']{
+      width: 1rem;
+      padding-bottom: 0.4rem;
+    }
+
+
+    .nft-container::-webkit-scrollbar-track
+{
+	border: 1px solid black;
+	background-color: #F5F5F5;
+}
+
+.nft-container::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.nft-container::-webkit-scrollbar-thumb
+{
+	background-color: #000f2c;	
+}
+
+
+          
+
+    </style>
+</head>
+<body>
+
+
+    <div style="text-align: center; background-color: #66a3ff; padding: 0px; border-radius: 10px;">
+        <h1 style="color: white; font-size: 24px;">Get Offers</h1>
+    </div>
+    <div id="hidden">
+
+      <div class="nft-form-container">
+        <div class="nft-container1" id="nft-containerID"></div>
+        
+        <div class="nft-data-c">
+          {% for nft in NFTs %}
+            <div class="nft-data">
+              <button class="nft-Data-Value" style="width: 100%; height:4rem;" type="button" data-value={{nft}}>{{nft }}</button>
+            </div>
+            {% endfor %}
+          </div>
+            
+           <!--image data  -->
+           <div class="nft-data-img">
+            {% for url in URI %}
+            <img class="nft-data-img-s" src={{url}} style="width: 130px;height: 90px;"/>
+            {% endfor %}
+          </div>
+
+        </div>
+        <form style="margin-top: 3rem;" method="post" enctype="multipart/form-data" id="mint-form">
+        {% csrf_token %}
+        <label for="{{ form.title.id_for_label }}" style="color: #333;">NFT ID:</label>
+        {{ form.nft_id }}
+
+        <div class="button-container">
+            <button type="submit" style="background-color: #33cc33; font-size: 16px;">Get Now!</button>
+        </div>
+    </form><br>
+    {% comment %} <div style="text-align: center; margin-top: 16rem;">
+        <a href="{% url 'home' %}" style="color: white; text-decoration: none; background-color: #333; padding: 10px 20px; border-radius: 5px; display: inline-block; font-size: 20px">Back to Home</a>
+    </div> {% endcomment %}
+
+    <div class="nav-menu">
+        <a href="{% url 'home' %}"><li>Home</li></a>
+        <a href="{% url 'mint_nft' %}"><li>NFT Creation</li></a>
+        <a href="{% url 'create_sell_offer' %}"><li>Create Sell Offer</li></a>
+        <a href="{% url 'getdata' %}"><li>Accept Sell Offer</li></a>
+        <a href="{% url 'create_buy_offer' %}"><li>Create Buy Offer</li></a>
+        <a href="{% url 'accept_buy_offer' %}"><li>Accept Buy Offer</li></a>
+        <a href="{% url 'get_offers' %}"><li>Get Offers</li></a>
+
+
+        {% comment %} <a href="{% url 'login' %}"><li>Log Out</li></a> {% endcomment %}
+      </div>
+
+      <script>
+
+const btnLoader = document.getElementById('btn-loader');
+    const loader = document.getElementById('loader');
+    
+    const nftId = document.getElementById('id_nft_id');
+
+
+    const main_c = document.getElementById('main_c');
+    const conta_w = document.getElementById('conta_w');
+    const hide = document.getElementById('hidden');
+
+    document.addEventListener('DOMContentLoaded', function () {
+         // JavaScript to handle button click event
+         const nftButtons = document.querySelectorAll('.nft-Data-Value');      
+         nftButtons.forEach(button => {
+           button.addEventListener('click', function () {
+             const nftValue = this.getAttribute('data-value');
+             console.log(nftValue);
+             document.getElementById('id_nft_id').value = nftValue;
+           });
+         });
+       });
+    
+    btnLoader.addEventListener('click',()=>{
+      
+        if(nftId.value ==='' ) return
+        hide.style.display='none';
+        main_c.style.display="flex";
+        // {% comment %} conta_w.classList.add('container_w'); {% endcomment %}
+        loader.classList.add('loader');
+    });
+
+    //profile
+    const Hnav1 = document.getElementById('HnavId')
+    
+        function toggleDropdown() {
+          // console.log('hii');
+            let dropdownMenu = document.getElementById("myDropdown");
+            if ((dropdownMenu.style.display === "none") ||  (dropdownMenu.style.display === ''))  {
+                dropdownMenu.style.display = "flex";
+            }else {
+              dropdownMenu.style.display = "none";
+                
+            }
+        }   
+        
+        //
+        Hnav1.addEventListener('click',toggleDropdown);
+    </script>
+
+</body>
+</html>

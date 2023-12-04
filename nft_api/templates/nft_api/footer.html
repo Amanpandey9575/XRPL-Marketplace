@@ -1,0 +1,238 @@
+{% load static %}
+
+<div class="footer-container" style="position: static;
+bottom: 0;background-color: rgb(18, 22, 25);">
+  <div class="img-log">
+    <a href="{% url 'home' %}"><span class="img-log-t">{ X }</span> <span class="nav-text">XRPLNFT</span></a>
+  </div>
+
+  <div class="footer-container-2">
+    <div class="footer-account">
+      <div class="footer-acc footer">
+        My Account
+      </div>
+      <div class="footer-acc-profile">
+        <a href="#">Profile</a>
+      </div>
+      <div class="footer-acc-my-collection">
+        <a href="#">My Collections</a>
+      </div>
+      <div class="footer-acc-my-settings">
+        <a href="#">Settings</a>
+      </div>
+      
+    </div>
+
+    <div class="footer-resources">
+      <div class="footer-res footer">
+        Resources
+      </div>
+      <div class="footer-res-partners">
+        <a href="#">Partners</a>
+      </div>
+      <div class="footer-res-buy-xrpl">
+        <a href="#">Buy XRPL</a>
+      </div>
+      <div class="footer-res-blog">
+        <a href="#">Blog</a>
+      </div>
+      
+    </div>
+
+    <div class="footer-social">
+      <div class="footer-soc footer">
+        Social
+      </div>
+      <div class="footer-soc-twitter">
+        <a href="#">Twitter</a>
+      </div>
+      <div class="footer-soc-linkedin">
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="footer-soc-facebook">
+        <a href="#">Facebook</a>
+      </div>
+      <div class="footer-soc-instagram">
+        <a href="#">Instagram</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const loginBtn = document.getElementById('loginBtn');
+    const loginPopup = document.getElementById('loginPopup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const popupcontent = document.getElementById('popup-content');
+    const navbarG = document.getElementById('navbarG');
+    const nfCcontainerID = document.getElementById('nft-containerID');
+    const qrPopup = document.getElementById('qrPopu');
+
+    loginBtn.addEventListener('click', function () {
+        loginPopup.style.display = 'block';
+        navbarG.style.opacity='0.6';
+        navbarG.style.filter='blur(2px)';
+        
+        popupcontent.addEventListener('click', function () {
+          qrPopup.style.display='block';
+            console.log("done");
+        });
+
+    });
+    document.addEventListener('click', function (event) {
+        if (event.target === loginPopup) {
+          console.log('helllllo')
+            loginPopup.style.display = 'none';
+            //qrPopup.style.display='none';
+            navbarG.style.opacity='1';
+            navbarG.style.filter='blur(0)';
+        }
+    }); 
+});
+  document.addEventListener("DOMContentLoaded", function() {
+  const btnLoader = document.getElementById('btn-loader');
+  const btnLoaders = document.querySelectorAll('.btn-loader1');
+  const btnLoaders1 = document.querySelectorAll('.btn-find-nfts');
+  const container = document.getElementById('user-main-container');
+
+  const loaderinf = ()=>{
+    const btnlg = document.getElementById('loader-gl');
+    const navbarG = document.getElementById('navbarG');
+    console.log('1');
+    btnlg.style.display="block";
+    navbarG.style.opacity='0.6';
+    navbarG.style.filter='blur(2px)';
+  }
+
+  btnLoaders.forEach((btnLoade) => {
+    console.log('hiiiii');
+    btnLoade.addEventListener('click', loaderinf);
+  });
+
+  btnLoaders1.forEach((btnLoade) => {
+    console.log('hiiiii');
+    btnLoade.addEventListener('click', loaderinf);
+  });
+if(btnLoader !== null){
+  btnLoader.addEventListener('click',loaderinf);
+}
+  
+  
+});
+  
+    // Add an event listener to the file input to update the image preview
+    const imageInput = document.getElementById("id_image");
+    const imagePreview = document.getElementById("image-preview");
+    const imagemint = document.getElementById('mintDynamicImage');
+    const mint_form = document.getElementById('mint-form');
+
+
+    if(imageInput !== null){imageInput.addEventListener("change", function () {
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagemint.style.backgroundImage = `url(${e.target.result})`;
+                mint_form.style.background = "#0000004d";
+                mint_form.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
+
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    });}
+
+ const previewImage = (event) => {
+    const imageFiles = event.target.files;
+    const imageFilesLength = imageFiles.length;
+
+    
+    if (imageFilesLength > 0) {
+        const imageSrc = URL.createObjectURL(imageFiles[0]);
+        const imagePreviewElement = document.querySelector("#preview-selected-image");
+        const uploadButton = document.querySelector("label[for='file-upload']");
+        
+        imagePreviewElement.src = imageSrc;
+        imagePreviewElement.style.display = "block";
+        imagemint.style.backgroundImage = `url(${imageSrc})`;
+        imagemint.style.display = "block";
+        
+        // Hide the "Upload" button
+        uploadButton.style.display = "none";
+    }
+  };
+  const nft = ["https://news.johncabot.edu/wp-content/uploads/2022/03/nft1.png","https://qph.cf2.quoracdn.net/main-qimg-0e1b650d51ec242e5dceb3eb82b8aaa4","https://miro.medium.com/v2/resize:fit:1400/1*C7yfQZxIoGminCReKdz2Vg.jpeg","https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-xTSC6LxkBGTT-nosr6sb_MekBIBbN4GxJg&usqp=CAU","https://akm-img-a-in.tosshub.com/businesstoday/images/story/202111/ab-nft-sixteen_nine.jpg?size=1200:675","https://cdn.pixabay.com/photo/2022/03/01/02/51/galaxy-7040416_1280.png","https://accelerationeconomy.com/wp-content/uploads/2022/11/a-picture-containing-text-colorful-description-a.png","https://hacker9-cdn.b-cdn.net/wp-content/uploads/2021/12/What-Exactly-Is-NFT-design.jpg"];
+  const randomNumber = Math.floor(Math.random() * nft.length);
+  const img_url = nft[randomNumber];
+  const image_1_id = document.getElementById('container-index-img-bg');
+  const image_2_id = document.getElementById('index-img-bg');
+  console.log(nft.length)
+  console.log(randomNumber)
+  
+  if(image_1_id !==null || image_2_id !== null){
+    image_1_id.style.backgroundImage =`url(${img_url})`
+    image_2_id.src=img_url;
+  }
+
+
+
+  // Add this JavaScript code to your HTML or in an external script file
+const hamburger = document.getElementById('hamburger');
+const menuContainer = document.getElementById('menu-container');
+
+hamburger.addEventListener('click', () => {
+    menuContainer.style.display = 'block'; // Show the menu container
+    menuContainer.style.right = '0'; // Slide in from the right
+});
+
+// Add an event listener to close the menu when clicking outside of it
+document.addEventListener('click', (e) => {
+    if (e.target !== hamburger && e.target !== menuContainer) {
+        menuContainer.style.right = '-100%'; // Slide out to the right
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+const  nft_Data_Values = document.querySelectorAll('.nft-data');
+const  nft_con_sell = document.getElementById('sellDynamicImage');
+nft_Data_Values.forEach((nft_data_value)=>{
+  nft_data_value.addEventListener('click',function (){
+    console.log('hello');
+    const parentEle = this.parentNode;
+    const imgTag = parentEle.querySelector('.nft-data-img-s');
+    const imgurl = imgTag.getAttribute('src');
+    nft_con_sell.style.backgroundImage = `url(${imgurl})`;    
+    console.log(imgurl);
+  })
+  })
+})
+
+
+
+  //document.addEventListener('DOMContentLoaded', function () {
+    // JavaScript to handle button click event
+  //  const nftButtons = document.querySelectorAll('.nft-Data-Value');
+  //  nftButtons.forEach((button) => {
+  //    button.addEventListener('click', function () {
+  //      const nftValue = this.getAttribute('data-value');
+  //      console.log(nftValue);
+  //      document.getElementById('id_nftoken_id').value = nftValue;
+//
+  //      nftButtons.forEach(b => {
+  //      b.style.backgroundColor = '#0d1f31';
+  //    });
+//
+  //  // Change the background color of the clicked button
+  //  this.style.backgroundColor = '#0056b3';
+//
+  //    });
+  //  });
+  //});
+
+</script>
+
+</body>
+</html>

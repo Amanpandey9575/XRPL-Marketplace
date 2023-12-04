@@ -1,0 +1,221 @@
+{% extends "nft_api/base.html" %}
+
+{% block contentStart %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121619;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .nft-data {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .nft-Data-Value {
+            width: 100%;
+            height: 6rem;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nft-Data-Value:hover {
+            background-color: #45a049;
+        }
+
+        .nft-data-img {
+            text-align: center;
+        }
+
+        .nft-data-img-s {
+    height: 175px;
+    border-radius: 23px 23px 23px 23px;
+    padding: 12px;
+    /* border: 1px solid #007bff; */
+    margin-top: 8px;
+    width: 197px;
+}
+.expore-nft-img1{
+    color: rgb(255, 255, 255);
+    height: 264px;
+    box-shadow: none;
+    background: rgb(33, 37, 43);
+    border: 1px solid rgb(50, 55, 60);
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
+    padding: 0px 0px 5px;
+    object-fit: cover;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 9 / 14;
+    transition: width 1s ease-in-out 0s, height 0.5s ease-in-out 0s !important;
+}
+.explore-img1{
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 75%;
+    max-width: 280px;
+    margin-top: 0px;
+    object-fit: cover;
+}
+.explore-container-nft1 {
+    display: flex;
+    flex-flow: wrap;    
+    margin-top: 80px;
+    width: calc(97% + -2px);
+    margin-left: 16px;
+    row-gap: 3rem;
+    justify-content: center;
+    column-gap: -0.6rem;
+}
+.explore-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 5px;
+}
+
+.explore-text-l,.explore-text-n{
+    font-size: 0.8rem;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.coll-prof{
+    height: 48vh;
+    padding-top: 18%;
+    padding-left: 3%;
+}
+
+.coll-prof-user {
+    background-color: black;
+    border: 1px solid;
+    width: 138px;
+    height: 149px;
+    padding-top: 0%;
+    border-radius: 16%;
+    position: relative;
+}
+.coll-prof-data {
+    margin-top: 5%;
+    color: #f7fe5d;
+    font-size: 1.1rem;
+}
+
+.account_address-name,.account_address-date,.nft_length{
+    font-size: 1rem;
+    color: white;
+}
+.full_nanme{
+    margin-top: 170px;
+    font-weight: bold;
+    font-size: 22px;
+    color:#f7fe5d ;
+}
+
+.nfts_length{
+    margin-top: 12px;
+    font-size: 16px;
+    color:#f7fe5d ;
+}
+
+.collection-acc-hf{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+    align-items: center;
+}
+    </style>
+</head>
+<body>
+    <div class="nft-container" id="nft-containerID">       
+                <div class="container-index-img-bg" id="container-index-img-bg"></div>
+                <div class="coll-prof">
+                    <div class="coll-prof-user">
+                        <div style="position: absolute; top: -18%; left: 12%; font-size: 9rem;">
+                            {{user_name}}
+                        </div>
+                        <div class="full_nanme">
+                            {{full_name}}
+                        </div>
+                    </div>
+                    <div class="coll-prof-data">
+                        Account:  <span class="account_address-name">#{{account_address}}  </span>Created At :   <span class="account_address-date">{{created_at}}</span>
+                    </div>
+                    <div class="nfts_length">
+                        Total NFTs: <span class="nft_length">{{nft_length}}</span>
+                    </div>
+                    </div>
+    <div class="explore-container-nft1">
+        {% if account_address %}
+        {% if nft_length %}
+            {% for nft,uri in nft_uri_pairs %}
+            
+        <div class="expore-nft-img1">
+            <a  href="{% url 'explore_nft' account_address=account_address nft_id=nft.NFTokenID %}">
+                <div>
+                    <img class="expore-img1" style="width: 100%; height: 198px;"src="{{uri}}" />
+                </div>
+            </a>
+            <div class="collection-acc-hf">
+                <h4>x{{full_name}} #{{ nft.NFTokenID|slice:"-3:"}}</h4>
+                <form method="post" action="{% url 'get_offers' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="nft_id" value="{{ nft.NFTokenID }}">
+                    <button type="submit" name="get_offers">Offers</button>
+                </form>
+            </div>
+        </div>
+            {% endfor %}
+            {% else %}
+            <div>
+                <h2>{{full_name}} has not created any NFT yet</h2>
+            </div>
+            {% endif %}
+        {% endif %}
+        
+        {% for URI1 in URI %}
+        {% endfor %}
+
+
+    </div>
+</body>
+</html>
+{% endblock  %}
